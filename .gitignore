@@ -1,0 +1,24 @@
+# Archivos y carpetas de Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Carpetas de compilación e intermedios de .NET
+bin/
+obj/
+
+# Carpetas de Node.js si estás usando JavaScript en el front-end
+node_modules/
+
+# Archivos de registro
+*.log
+
+# Archivos de entorno
+.env
+
+# Carpetas de paquetes de NuGet
+packages/
+
+# Archivos de caché de Visual Studio Code
+.vscode/
