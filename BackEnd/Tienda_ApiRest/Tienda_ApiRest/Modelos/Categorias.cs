@@ -1,9 +1,7 @@
 ﻿namespace Tienda_ApiRest.Modelos
 {
-	public class Categorias
+	public class Categorias : Modelo
 	{
-		public int IdCategoria { get; set; }
-		public string? Nombre { get; set; }
 		public string? Descripcion { get; set; }
 	}
 }
