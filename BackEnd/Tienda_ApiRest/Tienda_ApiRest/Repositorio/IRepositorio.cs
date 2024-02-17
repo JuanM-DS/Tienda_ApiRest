@@ -4,6 +4,6 @@ namespace Tienda_ApiRest.Servicios
 {
 	public interface IRepositorio<T>
 	{
-		public Task<Mensaje> Insertar(T modelo);
+		public Task<Respuesta> Insertar(T modelo);
 	}
 }

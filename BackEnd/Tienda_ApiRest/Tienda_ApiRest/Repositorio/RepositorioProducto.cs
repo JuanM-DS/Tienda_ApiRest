@@ -1,5 +1,4 @@
 ﻿using System.Data.SqlClient;
-using System.Reflection;
 using Tienda_ApiRest.Modelos;
 
 namespace Tienda_ApiRest.Servicios
@@ -7,14 +6,15 @@ namespace Tienda_ApiRest.Servicios
 	public class RepositorioProducto : IRepositorio<Producto>
 	{
 		private readonly string _StrSqlServer;
-		private Mensaje _mensaje { get; set; }
-		public RepositorioProducto()
+		private Respuesta _Respuesta { get; set; }
+		public RepositorioProducto(ConexionSql strSqlServer, Respuesta mensaje)
 		{
-			_StrSqlServer = new ConexionSql().StrSqlServer;
-			_mensaje = new Mensaje();
+			_StrSqlServer = strSqlServer.StrSqlServer;
+			_Respuesta = mensaje;
 		}
 
-		public async Task<Mensaje> Insertar(Producto modelo)
+		/* Metodo encargado de insertar los productos en la base de datos*/
+		public async Task<Respuesta> Insertar(Producto modelo)
 		{
 			try
 			{
@@ -30,21 +30,21 @@ namespace Tienda_ApiRest.Servicios
 						await con.OpenAsync();
 						await cmd.ExecuteNonQueryAsync();
 
-						_mensaje.Estado = 201;
-						_mensaje.Descripcion = "Producto creado exitosamente";
-						_mensaje.Entidad = modelo;
+						_Respuesta.Estado = TipoRespuestaHttp.ok;
+						_Respuesta.Mensaje = "Producto creado exitosamente";
+						_Respuesta.Entidad = modelo;
 
-						return _mensaje;
+						return _Respuesta;
 					}
 				}
 			}
 			catch(SqlException ex)
 			{
-				_mensaje.Estado = 500;
-				_mensaje.Descripcion = ex.Message.ToString();
-				_mensaje.Entidad = modelo;
+				_Respuesta.Estado = TipoRespuestaHttp.InternalServerError;
+				_Respuesta.Mensaje = ex.Message.ToString();
+				_Respuesta.Entidad = modelo;
 
-				return _mensaje;
+				return _Respuesta;
 			}
 		}
 	}
