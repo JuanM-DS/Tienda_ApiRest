@@ -5,16 +5,14 @@ namespace Tienda_ApiRest.Servicios
 {
 	public class RepositorioProducto : IRepositorio<Producto>
 	{
-		private readonly string _StrSqlServer;
-		private Respuesta _Respuesta { get; set; }
-		public RepositorioProducto(ConexionSql strSqlServer, Respuesta mensaje)
+		private readonly string? _StrSqlServer;
+		public RepositorioProducto(ConexionSql strSqlServer)
 		{
 			_StrSqlServer = strSqlServer.StrSqlServer;
-			_Respuesta = mensaje;
 		}
 
 		/* Metodo encargado de insertar los productos en la base de datos*/
-		public async Task<Respuesta> Insertar(Producto modelo)
+		public async Task<bool> Insertar(Producto modelo)
 		{
 			try
 			{
@@ -30,22 +28,19 @@ namespace Tienda_ApiRest.Servicios
 						await con.OpenAsync();
 						await cmd.ExecuteNonQueryAsync();
 
-						_Respuesta.Estado = TipoRespuestaHttp.ok;
-						_Respuesta.Mensaje = "Producto creado exitosamente";
-						_Respuesta.Entidad = modelo;
-
-						return _Respuesta;
+						return true;
 					}
 				}
 			}
 			catch(SqlException ex)
 			{
-				_Respuesta.Estado = TipoRespuestaHttp.InternalServerError;
-				_Respuesta.Mensaje = ex.Message.ToString();
-				_Respuesta.Entidad = modelo;
-
-				return _Respuesta;
+				return false;
 			}
+		}
+
+		public Task<List<Producto>> Listar()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

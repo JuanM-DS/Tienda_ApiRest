@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tienda_ApiRest.Compartir;
 using Tienda_ApiRest.Modelos;
 using Tienda_ApiRest.Servicios;
 
 namespace Tienda_ApiRest.Controllers
 {
-	/*Controlador para manejar los datos del los productos*/
+    /*Controlador para manejar los datos del los productos*/
 
-	[ApiController]
+    [ApiController]
 	[Route("Api/Productos")]
 	public class ControladorProductos : Controller
 	{
@@ -23,8 +24,12 @@ namespace Tienda_ApiRest.Controllers
 		[Route("Insertar")]
 		public async Task<ActionResult<Respuesta>> Insertar(Producto modelo)
 		{
-			return View(_Respuesta);
-		}
+			var res = _Repo.Insertar(modelo);
+			if (res == null)
+			{
 
+			}
+			return _Respuesta;
+		}
 	}
 }

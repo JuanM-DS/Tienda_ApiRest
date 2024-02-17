@@ -1,3 +1,4 @@
+using Tienda_ApiRest.Compartir;
 using Tienda_ApiRest.Modelos;
 using Tienda_ApiRest.Servicios;
 
@@ -6,10 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 // Inyeccion de dependencias
+builder.Services.AddScoped<Microsoft.Extensions.Configuration.ConfigurationBuilder>(); // Configuración de ámbito
 builder.Services.AddScoped<IRepositorio<Producto>, RepositorioProducto>();
-builder.Services.AddSingleton<ConexionSql>();
+builder.Services.AddScoped<IRepositorio<Categoria>, RepositorioCategoria>();
+builder.Services.AddScoped<ConexionSql>();
 builder.Services.AddScoped<Respuesta>();
-builder.Services.AddScoped<ConfigurationBuilder>();
+
 
 var app = builder.Build();
 app.UseHttpsRedirection();
