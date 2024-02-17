@@ -18,6 +18,7 @@ namespace Tienda_ApiRest.Controllers
 			_Respuesta = respuesta;
 		}
 
+		/*Metodo para insertar los productos*/
 		[HttpPost]
 		[Route("Insertar")]
 		public async Task<ActionResult<Respuesta>> Insertar(Producto modelo)
