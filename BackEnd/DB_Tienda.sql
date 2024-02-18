@@ -1,6 +1,23 @@
 create database Tienda
 use Tienda
 
+
+INSERT INTO Categorias(Nombre, Descripcion)
+VALUES
+('Frutas y Verduras', 'Productos frescos y saludables, como manzanas, plátanos, tomates y lechugas.'),
+('Carnes y Aves', 'Una amplia selección de carnes de res, pollo, cerdo y pescado, perfectas para cualquier receta.'),
+('Productos lácteos', 'Productos lácteos frescos, como leche, queso, mantequilla y yogur, para una dieta equilibrada.'),
+('Productos de limpieza', 'Artículos esenciales para mantener tu hogar limpio y ordenado, incluyendo detergentes, desinfectantes y escobas.'),
+('Bebidas', 'Una variedad de bebidas refrescantes y energizantes, desde agua embotellada hasta refrescos y jugos naturales.');
+
+
+
+
+
+
+
+
+/*DDL*/
 create table Categorias(
 IdCategoria int identity primary key not null,
 Nombre varchar(50),

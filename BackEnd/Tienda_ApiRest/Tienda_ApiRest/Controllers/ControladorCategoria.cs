@@ -12,17 +12,15 @@ namespace Tienda_ApiRest.Controllers
 	public class ControladorCategoria : Controller
 	{
 		private readonly IRepositorio<Categoria> _Repo;
-		private Respuesta _Respuesta { get; set; }
 
-		public ControladorCategoria(IRepositorio<Categoria> Repo, Respuesta respuesta)
+		public ControladorCategoria(IRepositorio<Categoria> Repo)
 		{
 			_Repo = Repo;
-			_Respuesta = respuesta;
 		}
 
 		[HttpGet]
 		[Route("Listar")]
-		public async Task<ActionResult<Respuesta>> Listar()
+		public async Task<ActionResult<RespuestaDto>> Listar()
 		{
 			var lista = await _Repo.Listar();
 

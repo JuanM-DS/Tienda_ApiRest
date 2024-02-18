@@ -1,0 +1,73 @@
+nav {
+    margin: 0px auto 0;
+    position: relative;
+    width: 310px;
+    height: 30px;
+    background-color: #34495e;
+    font-size: 0;
+}
+nav a {
+    line-height: 30px;
+    height: 100%;
+    font-size: 8px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+nav .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+}
+a.button {
+    width: calc(100% / 3); /* Dividir el ancho igualmente entre los tres botones */
+}
+a.button.active~.animation {
+    width: calc(100% / 3);
+    background-color: #6c8aa9;
+}
+a:nth-child(1).active~.animation {
+    left: 0;
+}
+a:nth-child(2).active~.animation {
+    left: calc(100% / 3);
+}
+a:nth-child(3).active~.animation {
+    left: calc(100% / 3 * 2);
+}
+
+body {
+    font-family: sans-serif;
+    background: #2c3e50;
+    margin: 2px;
+}
+span {
+    color: #2BD6B4;
+}
+
+#main {
+    margin: auto; /* Espacio en la parte superior e inferior */
+    width: calc(100% - 200px); /* 40px de espacio a cada lado */
+    padding: 20px;
+    box-sizing: border-box; /* Incluir el padding en el ancho */
+    text-align: center;
+}
+
+#contenido {
+    width: 100%;
+    text-align: left;
+}
+
+#CrearProducto{
+    width: calc(100% - 300px);
+    background: #3f566e;
+    margin: auto; /* Espacio en la parte superior e inferior */
+    color: white;
+}

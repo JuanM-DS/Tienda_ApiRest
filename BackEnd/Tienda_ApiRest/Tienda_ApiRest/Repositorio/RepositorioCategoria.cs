@@ -13,6 +13,7 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
+		/*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
 		public Task<bool> Insertar(Categoria modelo)
 		{
 			throw new NotImplementedException();

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tienda_ApiRest.Compartir;
+using Tienda_ApiRest.Factory;
 using Tienda_ApiRest.Modelos;
 using Tienda_ApiRest.Servicios;
+using Tienda_ApiRest.Tipos;
+using Tienda_ApiRest.Validaciones;
 
 namespace Tienda_ApiRest.Controllers
 {
@@ -11,24 +14,42 @@ namespace Tienda_ApiRest.Controllers
 	[Route("Api/Productos")]
 	public class ControladorProductos : Controller
 	{
-		private Respuesta _Respuesta;
+		private RespuestaDto _Respuesta;
+		private readonly ValidarProducto _Validaciones;
 		private readonly IRepositorio<Producto> _Repo;
-		public ControladorProductos(IRepositorio<Producto> repo, Respuesta respuesta)
+		public ControladorProductos(IRepositorio<Producto> repo, RespuestaDto respuesta, ValidarProducto validaciones)
 		{
 			_Repo = repo;
 			_Respuesta = respuesta;
+			_Validaciones = validaciones;
 		}
 
 		/*Metodo para insertar los productos*/
 		[HttpPost]
 		[Route("Insertar")]
-		public async Task<ActionResult<Respuesta>> Insertar(Producto modelo)
+		public async Task<ActionResult<RespuestaDto>> Insertar([FromBody] Producto modelo)
 		{
-			var res = _Repo.Insertar(modelo);
-			if (res == null)
-			{
+			var valido = _Validaciones.Validate(modelo);
 
+			if (!valido.IsValid)
+			{
+				string errores = String.Empty;
+				foreach(var item in valido.Errors)
+				{
+					errores += $"\n Propiedad : {item.PropertyName} fallo con el error: {item.ErrorMessage}"; 
+				}
+
+				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.BadRequest, modelo, errores);
 			}
+			else if (await _Repo.Insertar(modelo))
+			{
+				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Created, modelo);
+			}
+			else
+			{
+				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, modelo);
+			}
+
 			return _Respuesta;
 		}
 	}
