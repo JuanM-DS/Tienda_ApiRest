@@ -20,7 +20,7 @@ namespace Tienda_ApiRest.Controllers
 
 		[HttpGet]
 		[Route("Listar")]
-		public async Task<ActionResult<Respuesta>> Listar()
+		public async Task<ActionResult<RespuestaDto>> Listar()
 		{
 			var lista = await _Repo.Listar();
 

@@ -7,15 +7,15 @@ namespace Tienda_ApiRest.Factory
 
 	public class RespuestaFactory
 	{
-		private static Respuesta? _respuesta;
+		private static RespuestaDto? _respuesta;
 
 		/*Dependiendo del tipo de respespuesta http que le pasemos, este creara una respuesta*/
-		public static Respuesta CrearRespuesta(TipoRespuestaHttp tipo, dynamic entidad, string mensaje = "BadRequest")
+		public static RespuestaDto CrearRespuesta(TipoRespuestaHttp tipo, dynamic entidad, string mensaje = "BadRequest")
 		{
 			switch(tipo)
 			{
 				case TipoRespuestaHttp.Ok:
-					_respuesta = new Respuesta() {
+					_respuesta = new RespuestaDto() {
 						Estado = TipoRespuestaHttp.Ok,
 						Mensaje = "Lista Encontrada y devuelta Correctamente",
 						Entidad = entidad
@@ -23,7 +23,7 @@ namespace Tienda_ApiRest.Factory
 					return _respuesta;
 
 				case TipoRespuestaHttp.Created:
-					_respuesta = new Respuesta()
+					_respuesta = new RespuestaDto()
 					{
 						Estado = TipoRespuestaHttp.Created,
 						Mensaje = "Entidad creada correctamente",
@@ -32,7 +32,7 @@ namespace Tienda_ApiRest.Factory
 					return _respuesta;
 
 				case TipoRespuestaHttp.NotFound:
-					_respuesta = new Respuesta()
+					_respuesta = new RespuestaDto()
 					{
 						Estado = TipoRespuestaHttp.NotFound,
 						Mensaje = "Entidad no encontrada",
@@ -41,7 +41,7 @@ namespace Tienda_ApiRest.Factory
 					return _respuesta;
 
 				case TipoRespuestaHttp.InternalServerError:
-					_respuesta = new Respuesta()
+					_respuesta = new RespuestaDto()
 					{
 						Estado = TipoRespuestaHttp.InternalServerError,
 						Mensaje = "Error interno del servidor",
@@ -50,7 +50,7 @@ namespace Tienda_ApiRest.Factory
 					return _respuesta;
 
 				case TipoRespuestaHttp.BadRequest:
-					_respuesta = new Respuesta()
+					_respuesta = new RespuestaDto()
 					{
 						Estado = TipoRespuestaHttp.BadRequest,
 						Mensaje = mensaje,

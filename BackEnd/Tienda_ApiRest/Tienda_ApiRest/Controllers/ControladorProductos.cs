@@ -14,10 +14,10 @@ namespace Tienda_ApiRest.Controllers
 	[Route("Api/Productos")]
 	public class ControladorProductos : Controller
 	{
-		private Respuesta _Respuesta;
+		private RespuestaDto _Respuesta;
 		private readonly ValidarProducto _Validaciones;
 		private readonly IRepositorio<Producto> _Repo;
-		public ControladorProductos(IRepositorio<Producto> repo, Respuesta respuesta, ValidarProducto validaciones)
+		public ControladorProductos(IRepositorio<Producto> repo, RespuestaDto respuesta, ValidarProducto validaciones)
 		{
 			_Repo = repo;
 			_Respuesta = respuesta;
@@ -27,7 +27,7 @@ namespace Tienda_ApiRest.Controllers
 		/*Metodo para insertar los productos*/
 		[HttpPost]
 		[Route("Insertar")]
-		public async Task<ActionResult<Respuesta>> Insertar([FromBody] Producto modelo)
+		public async Task<ActionResult<RespuestaDto>> Insertar([FromBody] Producto modelo)
 		{
 			var valido = _Validaciones.Validate(modelo);
 
