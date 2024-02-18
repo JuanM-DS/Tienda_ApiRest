@@ -32,7 +32,7 @@ namespace Tienda_ApiRest.Servicios
 					}
 				}
 			}
-			catch(SqlException ex)
+			catch
 			{
 				return false;
 			}
