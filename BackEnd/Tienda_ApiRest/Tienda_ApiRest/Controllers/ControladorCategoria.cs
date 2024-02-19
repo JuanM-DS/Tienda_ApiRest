@@ -18,6 +18,7 @@ namespace Tienda_ApiRest.Controllers
 			_Repo = Repo;
 		}
 
+		/*EndPont para listar las categorias*/
 		[HttpGet]
 		[Route("Listar")]
 		public async Task<ActionResult<RespuestaDto>> Listar()
@@ -27,5 +28,16 @@ namespace Tienda_ApiRest.Controllers
 			return (lista != null) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, lista)) 
 									: StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, lista));
 		}
+
+		/*EndPoint para buscar la categoria por id*/
+		[HttpGet]
+		[Route("PorId")]
+		public async Task<ActionResult<RespuestaDto>> PorId([FromBody] int id)
+		{
+			var respuesta  = await _Repo.BuscarPorId(id);
+			return (respuesta != null) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, respuesta))
+										: StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, respuesta));
+		}
 	}
+
 }

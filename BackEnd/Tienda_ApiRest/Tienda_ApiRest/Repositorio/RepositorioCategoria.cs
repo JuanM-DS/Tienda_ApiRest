@@ -13,6 +13,42 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
+		/*Busca una categoria por un id*/
+		public async Task<Categoria> BuscarPorId(int id)
+		{
+			try
+			{
+				var categoria = new Categoria();
+
+				using (var con = new SqlConnection(_StrSqlServer))
+				{
+					using (var cmd = new SqlCommand("sp_BuscarCategoria", con))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.AddWithValue("@Id", id);
+						con.OpenAsync().Wait();
+						using (var rd = await cmd.ExecuteReaderAsync())
+						{
+							if (rd.HasRows)
+							{
+								while (rd.Read())
+								{
+									categoria.Id = Convert.ToInt32(rd["IdCategoria"]);
+									categoria.Nombre = rd["Nombre"].ToString();
+									categoria.Descripcion = rd["Descripcion"].ToString();
+								}
+							}
+						}
+					}
+				}
+				return categoria;
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
 		/*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
 		public Task<bool> Insertar(Categoria modelo)
 		{
@@ -32,14 +68,17 @@ namespace Tienda_ApiRest.Servicios
 						await con.OpenAsync();
 						using (var rd = await cmd.ExecuteReaderAsync())
 						{
-							while (rd.Read())
+							if (rd.HasRows)
 							{
-								var miCategoria = new Categoria();
-								miCategoria.Id = Convert.ToInt32(rd["IdCategoria"]);
-								miCategoria.Nombre = rd["Nombre"].ToString();
-								miCategoria.Descripcion = rd["Descripcion"].ToString();
+								while (rd.Read())
+								{
+									var miCategoria = new Categoria();
+									miCategoria.Id = Convert.ToInt32(rd["IdCategoria"]);
+									miCategoria.Nombre = rd["Nombre"].ToString();
+									miCategoria.Descripcion = rd["Descripcion"].ToString();
 
-								Lista.Add(miCategoria);
+									Lista.Add(miCategoria);
+								}
 							}
 						}
 					}

@@ -11,6 +11,11 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
+		public Task<Producto> BuscarPorId(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		/* Metodo encargado de insertar los productos en la base de datos*/
 		public async Task<bool> Insertar(Producto modelo)
 		{

@@ -8,5 +8,7 @@ namespace Tienda_ApiRest.Servicios
 		public Task<bool> Insertar(T modelo);
 
 		public Task<List<T>> Listar();
+
+		public Task<T> BuscarPorId(int id);
 	}
 }
