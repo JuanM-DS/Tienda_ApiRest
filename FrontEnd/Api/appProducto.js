@@ -1,3 +1,4 @@
+/*Metodo para ingresar los productos a la base de datos*/
 export const InsertarProducto = async (datosAEnviar) => {
     try {
         const url = 'https://localhost:7017/Api/Productos/Insertar';
@@ -12,6 +13,26 @@ export const InsertarProducto = async (datosAEnviar) => {
         return datosRespuesta;
     } catch (ex) {
         console.log(ex);
+        return null;
+    }
+}
+
+
+/*Metodo para obtener los productos*/
+export const ObtenerListaProductos = async () => {
+    const url = 'https://localhost:7017/Api/Producto/Listar'
+    try{
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
+        if(datos.estado === 200){
+            return datos.entidad;
+        }
+        else{
+            return null; 
+        }
+    }
+    catch(ex){
+        console.log(ex)
         return null;
     }
 }

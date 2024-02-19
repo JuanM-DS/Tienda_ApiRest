@@ -1,4 +1,5 @@
 
+/*Metodod para validar los campos que recolecto el formulario*/
 export const ValidarProducto = (nombre, precio, unidades, categoria) => {
     const errores = [];
 

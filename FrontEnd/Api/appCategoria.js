@@ -8,13 +8,7 @@ export const ObjetenerCategorias = async () => {
         const datos = await respuesta.json();
         if(datos.estado === 200){
             const lista = datos.entidad;
-            let catgeorias = ''; 
-            let cont = 1;
-            lista.forEach(item => {
-                catgeorias += `<option value="${cont}">${item.nombre}</option>`;
-                cont++;
-            });
-            return catgeorias;
+            return lista;
         }
         else{
            return null;
@@ -27,3 +21,18 @@ export const ObjetenerCategorias = async () => {
 }
 
  
+/*Metodo para obtener categoria por id*/
+export const ObtenerCategoriaPorId = async (id) => {
+     if(id != null || id === 0){
+          const url = 'https://localhost:7017/Api/Categoria/PorId'
+          let respuesta  = await fetch(url, {
+               method: 'POST',
+               body: id 
+          });
+          let datos = respuesta.json();
+          if(datos.estado === 200){
+               return datos.entidad;
+          }
+     }
+     return null;
+}

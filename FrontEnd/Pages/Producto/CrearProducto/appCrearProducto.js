@@ -1,10 +1,11 @@
-import { ValidarProducto } from '../../Utilidades/ValidacionesProductos.js';
-import { InsertarProducto } from '../../Api/appProducto.js';
+import { ValidarProducto } from '../../../Utilidades/ValidacionesProductos.js';
+import { InsertarProducto } from '../../../Api/appProducto.js';
 
 const formulario = document.getElementById('formulario');
 const selectCategorias = document.getElementById('selectCategoria');
 const alerta = document.getElementById('alerta');
 
+/*Evento que obtiene los datos del formulario y los procesa*/
 if (formulario) {
     formulario.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -42,9 +43,15 @@ if (formulario) {
 }
 
 
-
-import {ObjetenerCategorias} from '../../Api/appCategoria.js';
-let categorias = await ObjetenerCategorias();
-if(categorias != null){
-    selectCategorias.innerHTML += categorias;
+/*Optener las categorias que nos proporcina la api*/
+import {ObjetenerCategorias} from '../../../Api/appCategoria.js';
+let Listacategorias = await ObjetenerCategorias();
+if(Listacategorias != null){
+    let categorias = ''; 
+    let cont = 1;
+    listaCategorias.forEach(item => {
+        categorias += `<option value="${cont}">${item.nombre}</option>`;
+        cont++;
+    });
+    selectCategorias += categorias
 } 

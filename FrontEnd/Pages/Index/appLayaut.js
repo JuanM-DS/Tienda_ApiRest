@@ -7,24 +7,17 @@ const alertas = document.getElementById('alertas');
 
 /*Metodo para redireccionar a la pagina de inicio*/
 btnInicio.addEventListener('click', async () => {
-    try {
-        let res = await fetch('../Index/Index.html');
-        let html = await res.text();
-        contenido.innerHTML = html;
-    } catch (ex) {
-        console.log(ex)
-    }
 });
 
 btnProducto.addEventListener('click', async () => {
     try {
-        let res = await fetch('../Producto/CrearProducto.html');
+        let res = await fetch('../Producto/ListarProductos/Listar.html');
         let html = await res.text();
         contenido.innerHTML = html;
 
         // Importar y ejecutar el JavaScript asociado al HTML
         const script = document.createElement('script');
-        script.src = '../Producto/appCrearProducto.js'; // Ajusta la ruta según sea necesario
+        script.src = '../Producto/ListarProductos/appListar.js'; // Ajusta la ruta según sea necesario
         script.type = 'module';
         script.onload = () => {
             console.log('Script cargado exitosamente');
