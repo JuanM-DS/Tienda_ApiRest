@@ -8,6 +8,5 @@ namespace Tienda_ApiRest.Modelos
 		public string? Nombre { get; set; }
 		[Required]
 		public int Id { get; set; }
-
 	}
 }

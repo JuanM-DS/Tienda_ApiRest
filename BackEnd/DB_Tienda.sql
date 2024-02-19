@@ -14,7 +14,7 @@ VALUES
 
 
 
-
+select * from Productos
 
 
 /*DDL*/
@@ -23,11 +23,11 @@ IdCategoria int identity primary key not null,
 Nombre varchar(50),
 Descripcion varchar(200)
 )
-
+drop table Productos
 create table Productos(
 	IdProducto int identity primary key not null,
 	Nombre varchar(50),
-	Precio money,
+	Precio decimal(6,2),
 	Unidades int,
 	IdCategoria int,
 	Constraint FK_IdCategoria Foreign Key (IdCategoria) References Categorias(IdCategoria)
@@ -39,7 +39,7 @@ create procedure sp_ListarProductos as select * from Productos
 create procedure sp_Listarcategorias as select * from Categorias
 --
 create procedure sp_AggProductos
-(@Nombre int, @Precio money, @Unidades int, @IdCategoria int)
+(@Nombre varchar(50), @Precio decimal(6,2), @Unidades int, @IdCategoria int)
 as
 insert into Productos (Nombre, Precio, Unidades, IdCategoria)
 Values(@Nombre, @Precio, @Unidades, @IdCategoria)
