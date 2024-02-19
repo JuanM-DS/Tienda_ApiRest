@@ -8,9 +8,9 @@ using Tienda_ApiRest.Validaciones;
 
 namespace Tienda_ApiRest.Controllers
 {
-    /*Controlador para manejar los datos del los productos*/
+	/*Controlador para manejar los datos del los productos*/
 
-    [ApiController]
+	[ApiController]
 	[Route("Api/Productos")]
 	public class ControladorProductos : Controller
 	{
@@ -34,9 +34,9 @@ namespace Tienda_ApiRest.Controllers
 			if (!valido.IsValid)
 			{
 				string errores = String.Empty;
-				foreach(var item in valido.Errors)
+				foreach (var item in valido.Errors)
 				{
-					errores += $"\n Propiedad : {item.PropertyName} fallo con el error: {item.ErrorMessage}"; 
+					errores += $"\n Propiedad : {item.PropertyName} fallo con el error: {item.ErrorMessage}";
 				}
 
 				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.BadRequest, modelo, errores);
@@ -51,6 +51,15 @@ namespace Tienda_ApiRest.Controllers
 			}
 
 			return _Respuesta;
+		}
+
+		/*Metodo par Listar los productos*/
+		[HttpGet]
+		[Route("Listar")]
+		public async Task<ActionResult<RespuestaDto>> Listar()
+		{
+			var lista = await _Repo.Listar();
+			return (lista != null) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, lista)) : StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError,lista)); 
 		}
 	}
 }

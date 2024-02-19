@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using Tienda_ApiRest.Modelos;
+using System.Data;
 
 namespace Tienda_ApiRest.Servicios
 {
@@ -43,9 +44,43 @@ namespace Tienda_ApiRest.Servicios
 			}
 		}
 
-		public Task<List<Producto>> Listar()
+		/*Metodo para devolver la lista de productos creada*/
+		public async Task<List<Producto>> Listar()
 		{
-			throw new NotImplementedException();
+			var lista = new List<Producto>();
+			try
+			{
+				using (var con = new SqlConnection(_StrSqlServer))
+				{
+					using (var cmd = new SqlCommand("sp_ListarProductos", con))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						await con.OpenAsync();
+						using (var rd = await cmd.ExecuteReaderAsync())
+						{
+							if (rd.HasRows)
+							{
+								while (rd.Read())
+								{
+									var producto = new Producto();
+									producto.Id = Convert.ToInt32(rd["IdProducto"]);
+									producto.Nombre = rd["Nombre"].ToString();
+									producto.Precio = Convert.ToDecimal(rd["Precio"]);
+									producto.Unidades = Convert.ToInt32(rd["unidades"]);
+									producto.IdCategoria = Convert.ToInt32(rd["IdCategoria"]);
+
+									lista.Add(producto);
+								}
+							}
+						}
+					}
+				}
+				return lista;
+			}
+			catch
+			{
+				return null;
+			}
 		}
 	}
 }
