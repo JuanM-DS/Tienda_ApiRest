@@ -1,6 +1,7 @@
 using Tienda_ApiRest.Compartir;
 using Tienda_ApiRest.Modelos;
 using Tienda_ApiRest.Servicios;
+using Tienda_ApiRest.Validaciones;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,6 +13,7 @@ builder.Services.AddScoped<IRepositorio<Producto>, RepositorioProducto>();
 builder.Services.AddScoped<IRepositorio<Categoria>, RepositorioCategoria>();
 builder.Services.AddScoped<ConexionSql>();
 builder.Services.AddScoped<RespuestaDto>();
+builder.Services.AddScoped<ValidarProducto>();
 
 builder.Services.AddCors(options =>
 {
