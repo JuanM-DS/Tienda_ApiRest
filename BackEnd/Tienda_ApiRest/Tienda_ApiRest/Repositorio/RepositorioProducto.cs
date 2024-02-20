@@ -12,9 +12,60 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
-		public Task<Producto> BuscarPorId(int id)
+		public async Task<bool> Actualizar(Producto modelo)
 		{
-			throw new NotImplementedException();
+			using(var con = new SqlConnection(_StrSqlServer))
+			{
+				using (var cmd  = new SqlCommand("", con))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("@Nombre", modelo.Nombre);
+					cmd.Parameters.AddWithValue("@Precio", modelo.Precio);
+					cmd.Parameters.AddWithValue("@Unidades", modelo.Unidades);
+					cmd.Parameters.AddWithValue("@IdCategoria", modelo.IdCategoria);
+					await con.OpenAsync();
+					await cmd.ExecuteNonQueryAsync();
+
+					return true;
+				}
+			}
+		}
+
+		/*Buscar Producto mediante el Id*/
+		public async Task<Producto> BuscarPorId(int id)
+		{
+			try
+			{
+				var producto = new Producto();
+				using (var con = new SqlConnection(_StrSqlServer))
+				{
+					using (var cmd = new SqlCommand("sp_BuscarProducto", con))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.AddWithValue("@Id", id);
+						con.OpenAsync().Wait();
+						using (var rd = await cmd.ExecuteReaderAsync())
+						{
+							if (rd.HasRows)
+							{
+								while (rd.Read())
+								{
+									producto.Id = Convert.ToInt32(rd["IdProducto"]);
+									producto.Nombre = rd["Nombre"].ToString();
+									producto.Precio = Convert.ToInt32(rd["Precio"]);
+									producto.Unidades = Convert.ToInt32(rd["Unidades"]);
+									producto.IdCategoria = Convert.ToInt32(rd["IdCategoria"]);
+								}
+							}
+						}
+					}
+				}
+				return producto;
+			}
+			catch
+			{
+				return null;
+			} 
 		}
 
 		/* Metodo encargado de insertar los productos en la base de datos*/

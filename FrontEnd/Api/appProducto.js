@@ -1,4 +1,3 @@
-/*Metodo para ingresar los productos a la base de datos*/
 export const InsertarProducto = async (datosAEnviar) => {
     try {
         const url = 'https://localhost:7017/Api/Productos/Insertar';
@@ -33,6 +32,37 @@ export const ObtenerListaProductos = async () => {
     }
     catch(ex){
         console.log(ex)
+        return null;
+    }
+}
+
+/*Obtener producto por Id */
+export const ObtenerProductoPorId =  async (id) =>{
+    if(id != null || id != 0){
+        const url = `https://localhost:7017/Api/Productos/PorId?id=${id}`;
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
+        if(datos.estado === 200){
+            return datos.entidad;
+        }
+    }
+    return null;
+} 
+
+export const EditarProducto = async (producto) =>{
+    try{
+        const url = 'https://localhost:7017/Api/Productos/Actualizar'
+        const respuesta  = fetch(url, {
+            method: 'PUT',
+            body: producto,
+            headers: {
+                'Content-Type': 'application/json' // Configurar el tipo de contenido como JSON
+            }
+        });
+        const datos = await respuesta.json();
+        return datos;
+    }catch (ex) {
+        console.log(ex);
         return null;
     }
 }

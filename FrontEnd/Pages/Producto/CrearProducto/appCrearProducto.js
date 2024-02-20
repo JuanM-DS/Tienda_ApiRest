@@ -11,8 +11,18 @@ if (formulario) {
     formulario.addEventListener('submit', async function(e) {
         e.preventDefault();
         const datos = new FormData(formulario);
+
+        // Convertir FormData a un objeto JavaScript
+        const datosObjeto = {};
+        for (const [key, value] of datos.entries()) {
+            datosObjeto[key] = value;
+        }
+
         // Validar los datos
-        const errores = ValidarProducto(datos.get('nombre'), datos.get('precio'), datos.get('unidades'), datos.get('Categorias'));
+        const { nombre, precio, unidades } = datosObjeto;
+        console.log(datosObjeto)
+        const categoria = datos.get('Categorias');
+        const errores = ValidarProducto(nombre, precio, unidades, categoria);
 
         if (errores.length > 0) {
             const alertaHTML = errores.map(error => `<p>${error}</p>`).join('');
@@ -42,8 +52,8 @@ if (listaCategorias != null) {
     let categorias = '';
     let cont = 1;
     listaCategorias.forEach(item => {
-        categorias += `<option value="${cont}">${item.nombre}</option>`;
-        cont++;
+        categorias += `<option value="${item.nombre}">${item.nombre}</option>`;
+        cont++; 
     });
     selectCategorias.innerHTML += categorias; 
 }

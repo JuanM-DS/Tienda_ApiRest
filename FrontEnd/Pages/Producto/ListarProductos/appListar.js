@@ -15,7 +15,7 @@ if(ListaProductos != null){
             <td>${ListaProductos[item].unidades}</td>
             <td>${itemCategoria.nombre}</td>
             <td>
-                <a class="btn btn-primary btn-sm" id="btnEditar">Editar</a>
+                <a href="../EditarProducto/EditarProducto.html?id=${ListaProductos[item].id}" class="btn btn-primary btn-sm" id="btnEditar">Editar</a>
                 <a class="btn btn-danger btn-sm" id="btnEditar">Eliminar</a>
             </td>
         </tr>

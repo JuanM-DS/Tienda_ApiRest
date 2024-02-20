@@ -10,5 +10,7 @@ namespace Tienda_ApiRest.Servicios
 		public Task<List<T>> Listar();
 
 		public Task<T> BuscarPorId(int id);
+
+		public Task<bool> Actualizar(T modelo);
 	}
 }

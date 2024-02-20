@@ -9,13 +9,23 @@ namespace Tienda_ApiRest.Controllers
 {
     [ApiController]
 	[Route("Api/Categoria")]
-	public class ControladorCategoria : Controller
+	public class ControladorCategoria : Controller , IControladores<Categoria>
 	{
 		private readonly IRepositorio<Categoria> _Repo;
 
 		public ControladorCategoria(IRepositorio<Categoria> Repo)
 		{
 			_Repo = Repo;
+		}
+
+		public Task<ActionResult<RespuestaDto>> Actualizar(Categoria modelo)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<ActionResult<RespuestaDto>> Insertar([FromBody] Categoria modelo)
+		{
+			throw new NotImplementedException();
 		}
 
 		/*EndPont para listar las categorias*/

@@ -13,6 +13,11 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
+		public Task<bool> Actualizar(Categoria modelo)
+		{
+			throw new NotImplementedException();
+		}
+
 		/*Busca una categoria por un id*/
 		public async Task<Categoria> BuscarPorId(int id)
 		{
