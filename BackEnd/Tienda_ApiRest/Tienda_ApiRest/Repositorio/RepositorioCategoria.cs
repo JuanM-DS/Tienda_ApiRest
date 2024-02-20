@@ -54,6 +54,11 @@ namespace Tienda_ApiRest.Servicios
 			}
 		}
 
+		public Task<bool> Eliminar(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		/*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
 		public Task<bool> Insertar(Categoria modelo)
 		{

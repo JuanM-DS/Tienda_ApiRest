@@ -69,9 +69,9 @@ namespace Tienda_ApiRest.Controllers
 			return (producto != null) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, producto)) : StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, producto));
 		}
 
-		[HttpGet]
+		[HttpPut]
 		[Route("Actualizar")]
-		public async Task<ActionResult<RespuestaDto>> Actualizar(Producto modelo)
+		public async Task<ActionResult<RespuestaDto>> Actualizar([FromBody]Producto modelo)
 		{
 			var valido = _Validaciones.Validate(modelo);
 			if (!valido.IsValid)
@@ -94,6 +94,14 @@ namespace Tienda_ApiRest.Controllers
 			}
 
 			return _Respuesta;
+		}
+
+		[HttpDelete]
+		[Route("Eliminar")]
+		public async Task<ActionResult<RespuestaDto>> Eliminar(int id)
+		{
+			var producto = await _Repo.Eliminar(id);
+			return (producto == true) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, producto)) : StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, producto));
 		}
 	}
 }

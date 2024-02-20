@@ -24,41 +24,45 @@ if(categoria!=null){
 
     if (listaCategorias != null) {
         let categorias = '';
+        let cont = 1;
         listaCategorias.forEach(item => {
-            categorias += `<option value="${item.nombre}">${item.nombre}</option>`;
+            categorias += `<option value="${cont}">${item.nombre}</option>`;
+            cont++; 
         });
         selectCategorias.innerHTML += categorias;
     }
     inputNombre.value = producto.nombre;
     inputUnidades.value = producto.unidades;
     inputPrecio.value = producto.precio;
-    selectCategorias.value = categoria.nombre
+    selectCategorias.value = categoria.id
 }
 
 /* Editando */
-if(formulario){
-    formulario.addEventListener('submit', async ()=>{
-        const datos = await FormData(formulario);
+if (formulario) {
+    formulario.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const datos = new FormData(formulario);
 
          // Convertir FormData a un objeto JavaScript
          const datosObjeto = {};
          for (const [key, value] of datos.entries()) {
-             datosObjeto[key] = value;
+             datosObjeto[key] = key === 'IdCategoria' ? selectCategorias.value : value;
          }
-         
-        /*Validar prodcuto */
-        const { nombre, precio, unidades, categoria } = datosObjeto;
-        const errores = ValidarProducto(nombre, precio, unidades, categoria);
+         datosObjeto['Id'] = id;
 
+        // Validar los datos
+        const { nombre, precio, unidades, IdCategoria } = datosObjeto;
+        console.log(datosObjeto.IdCategoria)
+
+        const errores = ValidarProducto(nombre, precio, unidades, IdCategoria);
         if (errores.length > 0) {
             const alertaHTML = errores.map(error => `<p>${error}</p>`).join('');
             alerta.innerHTML = `<div class="alert alert-danger" role="alert">${alertaHTML}</div>`;
             return;
         }
-
         // Insertar el producto utilizando la API
         try {
-            const respuesta = await EditarProducto(JSON.stringify(datos));
+            const respuesta = await EditarProducto(JSON.stringify(datosObjeto));
             if (respuesta.estado != 201) {
                 alerta.innerHTML = `<div class="alert alert-danger" role="alert"><p>${respuesta.mensaje}</p></div>`;
             } else {
@@ -68,5 +72,5 @@ if(formulario){
             console.log('Error al insertar el producto:', error);
             alerta.innerHTML = `<div class="alert alert-danger" role="alert"><p>Error al actualizar el producto</p></div>`;
         }
-    })
+    });
 }

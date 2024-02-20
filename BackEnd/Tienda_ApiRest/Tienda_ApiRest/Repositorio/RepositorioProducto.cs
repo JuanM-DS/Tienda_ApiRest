@@ -16,9 +16,10 @@ namespace Tienda_ApiRest.Servicios
 		{
 			using(var con = new SqlConnection(_StrSqlServer))
 			{
-				using (var cmd  = new SqlCommand("", con))
+				using (var cmd  = new SqlCommand("sp_ActualizarProducto", con))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("@IdProducto", modelo.Id);
 					cmd.Parameters.AddWithValue("@Nombre", modelo.Nombre);
 					cmd.Parameters.AddWithValue("@Precio", modelo.Precio);
 					cmd.Parameters.AddWithValue("@Unidades", modelo.Unidades);
@@ -66,6 +67,29 @@ namespace Tienda_ApiRest.Servicios
 			{
 				return null;
 			} 
+		}
+
+		/*Metodo para eliminar el producto*/
+		public async Task<bool> Eliminar(int id)
+		{
+			try
+			{
+				using (var con = new SqlConnection(_StrSqlServer))
+				{
+					using (var cmd = new SqlCommand("sp_EliminarProducto", con))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.AddWithValue("@IdProducto", id);
+						con.OpenAsync().Wait();
+						cmd.ExecuteNonQueryAsync().Wait();
+					}
+				}
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		/* Metodo encargado de insertar los productos en la base de datos*/

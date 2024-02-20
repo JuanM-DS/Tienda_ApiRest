@@ -17,7 +17,7 @@ namespace Tienda_ApiRest.Factory
 				case TipoRespuestaHttp.Ok:
 					_respuesta = new RespuestaDto() {
 						Estado = TipoRespuestaHttp.Ok,
-						Mensaje = "Lista Encontrada y devuelta Correctamente",
+						Mensaje = "Proceso realizado correctamente",
 						Entidad = entidad
 					};
 					return _respuesta;

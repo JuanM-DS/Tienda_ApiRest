@@ -23,6 +23,11 @@ namespace Tienda_ApiRest.Controllers
 			throw new NotImplementedException();
 		}
 
+		public Task<ActionResult<RespuestaDto>> Eliminar(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public Task<ActionResult<RespuestaDto>> Insertar([FromBody] Categoria modelo)
 		{
 			throw new NotImplementedException();

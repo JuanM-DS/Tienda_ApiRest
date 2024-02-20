@@ -12,5 +12,7 @@ namespace Tienda_ApiRest.Controllers
 		public  Task<ActionResult<RespuestaDto>> Listar();
 		public Task<ActionResult<RespuestaDto>> PorId(int id);
 		public Task<ActionResult<RespuestaDto>> Actualizar(T modelo);
+		public Task<ActionResult<RespuestaDto>> Eliminar(int id);
+
 	}
 }

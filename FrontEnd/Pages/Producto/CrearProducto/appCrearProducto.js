@@ -6,30 +6,39 @@ const formulario = document.getElementById('formulario');
 const selectCategorias = document.getElementById('selectCategoria');
 const alerta = document.getElementById('alerta');
 
+/*Obtener las categorias que nos proporciona la API*/
+let listaCategorias = await ObjetenerCategorias(); 
+if (listaCategorias != null) {
+    let categorias = '';
+    let cont = 1;
+    listaCategorias.forEach(item => {
+        categorias += `<option value="${cont}">${item.nombre}</option>`;
+        cont++; 
+    });
+    selectCategorias.innerHTML += categorias; 
+}
+
 /*Evento que obtiene los datos del formulario y los procesa*/
 if (formulario) {
     formulario.addEventListener('submit', async function(e) {
         e.preventDefault();
         const datos = new FormData(formulario);
 
-        // Convertir FormData a un objeto JavaScript
-        const datosObjeto = {};
-        for (const [key, value] of datos.entries()) {
-            datosObjeto[key] = value;
-        }
+         // Convertir FormData a un objeto JavaScript
+         const datosObjeto = {};
+         for (const [key, value] of datos.entries()) {
+             datosObjeto[key] = key === 'IdCategoria' ? selectCategorias.value : value;
+         }
 
         // Validar los datos
-        const { nombre, precio, unidades } = datosObjeto;
-        console.log(datosObjeto)
-        const categoria = datos.get('Categorias');
-        const errores = ValidarProducto(nombre, precio, unidades, categoria);
-
+        const { nombre, precio, unidades, IdCategoria } = datosObjeto;
+        const errores = ValidarProducto(nombre, precio, unidades, IdCategoria);
         if (errores.length > 0) {
             const alertaHTML = errores.map(error => `<p>${error}</p>`).join('');
             alerta.innerHTML = `<div class="alert alert-danger" role="alert">${alertaHTML}</div>`;
             return;
         }
-
+        console.log(datosObjeto.Categorias)
         // Insertar el producto utilizando la API
         try {
             const respuesta = await InsertarProducto(JSON.stringify(datosObjeto));
@@ -46,15 +55,5 @@ if (formulario) {
 }
 
 
-/*Obtener las categorias que nos proporciona la API*/
-let listaCategorias = await ObjetenerCategorias(); 
-if (listaCategorias != null) {
-    let categorias = '';
-    let cont = 1;
-    listaCategorias.forEach(item => {
-        categorias += `<option value="${item.nombre}">${item.nombre}</option>`;
-        cont++; 
-    });
-    selectCategorias.innerHTML += categorias; 
-}
+
  
