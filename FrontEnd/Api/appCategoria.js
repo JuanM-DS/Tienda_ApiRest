@@ -24,12 +24,9 @@ export const ObjetenerCategorias = async () => {
 /*Metodo para obtener categoria por id*/
 export const ObtenerCategoriaPorId = async (id) => {
      if(id != null || id === 0){
-          const url = 'https://localhost:7017/Api/Categoria/PorId'
-          let respuesta  = await fetch(url, {
-               method: 'POST',
-               body: id 
-          });
-          let datos = respuesta.json();
+          const url = `https://localhost:7017/Api/Categoria/PorId?id=${id}`
+          let respuesta  = await fetch(url);
+          let datos = await respuesta.json();
           if(datos.estado === 200){
                return datos.entidad;
           }

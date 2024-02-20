@@ -1,5 +1,6 @@
 import { ValidarProducto } from '../../../Utilidades/ValidacionesProductos.js';
 import { InsertarProducto } from '../../../Api/appProducto.js';
+import {ObjetenerCategorias} from '../../../Api/appCategoria.js';
 
 const formulario = document.getElementById('formulario');
 const selectCategorias = document.getElementById('selectCategoria');
@@ -10,16 +11,8 @@ if (formulario) {
     formulario.addEventListener('submit', async function(e) {
         e.preventDefault();
         const datos = new FormData(formulario);
-
-        // Convertir FormData a un objeto JavaScript
-        const datosObjeto = {};
-        for (const [key, value] of datos.entries()) {
-            datosObjeto[key] = value;
-        }
-
         // Validar los datos
-        const { nombre, precio, unidades, categoria } = datosObjeto;
-        const errores = ValidarProducto(nombre, precio, unidades, categoria);
+        const errores = ValidarProducto(datos.get('nombre'), datos.get('precio'), datos.get('unidades'), datos.get('Categorias'));
 
         if (errores.length > 0) {
             const alertaHTML = errores.map(error => `<p>${error}</p>`).join('');
@@ -43,15 +36,15 @@ if (formulario) {
 }
 
 
-/*Optener las categorias que nos proporcina la api*/
-import {ObjetenerCategorias} from '../../../Api/appCategoria.js';
-let Listacategorias = await ObjetenerCategorias();
-if(Listacategorias != null){
-    let categorias = ''; 
+/*Obtener las categorias que nos proporciona la API*/
+let listaCategorias = await ObjetenerCategorias(); 
+if (listaCategorias != null) {
+    let categorias = '';
     let cont = 1;
     listaCategorias.forEach(item => {
         categorias += `<option value="${cont}">${item.nombre}</option>`;
         cont++;
     });
-    selectCategorias += categorias
-} 
+    selectCategorias.innerHTML += categorias; 
+}
+ 

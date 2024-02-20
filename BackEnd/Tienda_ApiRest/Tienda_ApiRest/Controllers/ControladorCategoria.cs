@@ -32,7 +32,7 @@ namespace Tienda_ApiRest.Controllers
 		/*EndPoint para buscar la categoria por id*/
 		[HttpGet]
 		[Route("PorId")]
-		public async Task<ActionResult<RespuestaDto>> PorId([FromBody] int id)
+		public async Task<ActionResult<RespuestaDto>> PorId(int id)
 		{
 			var respuesta  = await _Repo.BuscarPorId(id);
 			return (respuesta != null) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, respuesta))

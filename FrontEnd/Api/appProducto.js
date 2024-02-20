@@ -20,7 +20,7 @@ export const InsertarProducto = async (datosAEnviar) => {
 
 /*Metodo para obtener los productos*/
 export const ObtenerListaProductos = async () => {
-    const url = 'https://localhost:7017/Api/Producto/Listar'
+    const url = 'https://localhost:7017/Api/Productos/Listar'
     try{
         const respuesta = await fetch(url);
         const datos = await respuesta.json();
