@@ -67,13 +67,31 @@ namespace Tienda_ApiRest.Servicios
 			}
 		}
 
-		public Task<bool> Eliminar(int id)
-		{
-			throw new NotImplementedException();
-		}
+        /*Metodo para eliminar el producto*/
+        public async Task<bool> Eliminar(int id)
+        {
+            try
+            {
+                using (var con = new SqlConnection(_StrSqlServer))
+                {
+                    using (var cmd = new SqlCommand("sp_EliminarCategoria", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@IdCategoria", id);
+                        con.OpenAsync().Wait();
+                        cmd.ExecuteNonQueryAsync().Wait();
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-		/*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
-		public async Task<bool> Insertar(Categoria modelo)
+        /*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
+        public async Task<bool> Insertar(Categoria modelo)
 		{
             try
             {

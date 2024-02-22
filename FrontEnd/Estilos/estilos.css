@@ -64,6 +64,12 @@ span {
     width: 100%;
     text-align: left;
 }
+#contenido h1 {
+    margin-top: 200px; /* Elimina el margen predeterminado */
+    color: white; /* Color blanco */
+    text-align: center; /* Centra el texto */
+    background-color: transparent; /* Fondo transparente */
+  }
 
 .Crear{
     width: calc(100% - 300px);

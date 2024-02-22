@@ -51,10 +51,13 @@ namespace Tienda_ApiRest.Controllers
             return _Respuesta;
         }
 
-        public Task<ActionResult<RespuestaDto>> Eliminar(int id)
-		{
-			throw new NotImplementedException();
-		}
+        [HttpDelete]
+        [Route("Eliminar")]
+        public async Task<ActionResult<RespuestaDto>> Eliminar(int id)
+        {
+            var Categoria = await _Repo.Eliminar(id);
+            return (Categoria == true) ? Ok(RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, Categoria)) : StatusCode(500, RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.InternalServerError, Categoria));
+        }
 
         [HttpPost]
         [Route("Insertar")]

@@ -12,7 +12,7 @@ if(ListaCategoria != null){
             <td>${ListaCategoria[item].descripcion}</td>
             <td>
                 <a href="../EditarCategoria/EditarCategoria.html?id=${ListaCategoria[item].id}" class="btn btn-primary btn-sm" id="btnEditar">Editar</a>
-                <a href="" class="btn btn-danger btn-sm" id="btnEditar">Eliminar</a>
+                <a href="../EliminarCategoria/Eliminar.html?id=${ListaCategoria[item].id}" class="btn btn-danger btn-sm" id="btnEditar">Eliminar</a>
             </td>
         </tr>
         `

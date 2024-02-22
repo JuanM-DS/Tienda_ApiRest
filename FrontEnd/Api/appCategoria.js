@@ -71,3 +71,21 @@ export const InsertarCategoria = async (datosAEnviar) => {
         return null;
     }
 }
+
+/*ELiminar Categoria */
+export const EliminarCategoria = async (id) =>{
+    try{
+        const url = `https://localhost:7017/Api/Categoria/Eliminar?id=${id}`
+        const respuesta  = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json' // Configurar el tipo de contenido como JSON
+            }
+        });
+        const datos = await respuesta.json();
+        return datos;
+    }catch (ex) {
+        console.log(ex);
+        return null;
+    }
+}

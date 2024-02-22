@@ -10,14 +10,11 @@ const alerta = document.getElementById('alerta');
 let listaCategorias = await ObjetenerCategorias(); 
 if (listaCategorias != null) {
     let categorias = '';
-    let cont = 1;
     listaCategorias.forEach(item => {
-        categorias += `<option value="${cont}">${item.nombre}</option>`;
-        cont++; 
+        categorias += `<option value="${item.id}">${item.nombre}</option>`;
     });
     selectCategorias.innerHTML += categorias; 
 }
-
 /*Evento que obtiene los datos del formulario y los procesa*/
 if (formulario) {
     formulario.addEventListener('submit', async function(e) {

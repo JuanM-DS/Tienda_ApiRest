@@ -14,7 +14,7 @@ VALUES
 
 
 
-select * from Productos
+select * from Categorias
 
 
 /*DDL*/
