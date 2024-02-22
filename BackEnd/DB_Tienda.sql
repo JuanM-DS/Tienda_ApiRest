@@ -52,6 +52,8 @@ values(@Nombre, @Descripcion)
 create procedure sp_BuscarProducto (@Id int)
 as
 select * from Productos where IdProducto = @Id
+
+exec sp_BuscarProducto 2
 --
 create procedure sp_BuscarCategoria (@Id int)
 as

@@ -86,7 +86,7 @@ namespace Tienda_ApiRest.Controllers
 			}
 			else if (await _Repo.Actualizar(modelo))
 			{
-				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Created, modelo);
+				_Respuesta = RespuestaFactory.CrearRespuesta(TipoRespuestaHttp.Ok, modelo);
 			}
 			else
 			{

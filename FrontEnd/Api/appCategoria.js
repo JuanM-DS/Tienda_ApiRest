@@ -33,3 +33,41 @@ export const ObtenerCategoriaPorId = async (id) => {
      }
      return null;
 }
+
+/*Insertar Categoria */
+export const InsertarCategoria = async (datosAEnviar) => {
+     try {
+         const url = 'https://localhost:7017/Api/Categoria/Insertar';
+         const respuesta = await fetch(url, {
+             method: 'POST',
+             body: datosAEnviar,
+             headers: {
+                 'Content-Type': 'application/json' // Configurar el tipo de contenido como JSON
+             }
+         });
+         const datosRespuesta = await respuesta.json();
+         return datosRespuesta;
+     } catch (ex) {
+         console.log(ex);
+         return null;
+     }
+ }
+
+ /*Actualizar categoria */
+ export const EditarCategoria = async (producto) =>{
+    try{
+        const url = 'https://localhost:7017/Api/Categoria/Actualizar'
+        const respuesta  = await fetch(url, {
+            method: 'PUT',
+            body: producto,
+            headers: {
+                'Content-Type': 'application/json' // Configurar el tipo de contenido como JSON
+            }
+        });
+        const datos = await respuesta.json();
+        return datos;
+    }catch (ex) {
+        console.log(ex);
+        return null;
+    }
+}

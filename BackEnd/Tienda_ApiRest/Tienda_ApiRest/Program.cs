@@ -14,6 +14,8 @@ builder.Services.AddScoped<IRepositorio<Categoria>, RepositorioCategoria>();
 builder.Services.AddScoped<ConexionSql>();
 builder.Services.AddScoped<RespuestaDto>();
 builder.Services.AddScoped<ValidarProducto>();
+builder.Services.AddScoped<ValidarCategoria>();
+
 
 builder.Services.AddCors(options =>
 {

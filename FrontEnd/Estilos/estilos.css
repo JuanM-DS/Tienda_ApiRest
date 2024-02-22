@@ -65,13 +65,13 @@ span {
     text-align: left;
 }
 
-#CrearProducto{
+.Crear{
     width: calc(100% - 300px);
     background: #3f566e;
     margin: auto; /* Espacio en la parte superior e inferior */
     color: white;
 }
-#listarProducto{
+.listar{
     width: calc(100% - 300px);
     background: #3f566e;
     margin: auto; /* Espacio en la parte superior e inferior */

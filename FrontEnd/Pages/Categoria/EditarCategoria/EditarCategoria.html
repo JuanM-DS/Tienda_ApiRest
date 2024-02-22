@@ -11,8 +11,8 @@
 <body>
 <nav>
     <a href="../../Index/Index.html" class="button" id="btnInicio">Inicio</a>
-    <a href="../ListarProductos/Listar.html" class="button" id="btnProducto">Productos</a>
-    <a href="../../Categoria/ListarCategoria/Listarcategoria.html" class="button" id="btnCategoria">Categorias</a>
+    <a href="../../Producto/ListarProductos/Listar.html" class="button" id="btnProducto">Productos</a>
+    <a href="../ListarCategoria/Listarcategoria.html" class="button" id="btnCategoria">Categorias</a>
     <div class="animation start-home"></div>
 </nav>
 <div id="main">
@@ -20,7 +20,7 @@
 
         <div class="card Crear">
             <div class="card-header">
-                Actualizar Producto
+                Editar Categoria
             </div>
             <div id="alerta">
         
@@ -33,23 +33,12 @@
                         <span  class="text-danger" ></span>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Precio</label>
-                        <input type="text" class="form-control" name="precio" id="precio">
+                        <label class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" name="descripcion" id="descripcion">
                         <span  class="text-danger"></span>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Unidades</label>
-                        <input type="text" class="form-control" name="unidades" id="unidades">
-                        <span  class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">  
-                        <label class="form-label">Categorias</label>
-                        <select class="form-select" id="selectCategoria" aria-label="Default select example" name="IdCategoria">
-                            <option selected>Selecciona categoria</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary">Editar</button>
-                    <a href="../ListarProductos/Listar.html" class="btn btn-warning">Volver a la lista</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="../ListarCategoria/Listarcategoria.html" class="btn btn-warning">Volver a la lista</a>
                 </form>
             </div>
         </div>
@@ -57,5 +46,5 @@
     </div>
 </div>
 </body>
-<script src="appEditar.js" type="module"></script>
+<script src="AppEditarcategoria.js" type="module"></script>
 </html>

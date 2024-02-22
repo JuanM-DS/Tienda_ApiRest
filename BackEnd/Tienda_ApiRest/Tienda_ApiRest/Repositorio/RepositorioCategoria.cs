@@ -13,10 +13,23 @@ namespace Tienda_ApiRest.Servicios
 			_StrSqlServer = strSqlServer.StrSqlServer;
 		}
 
-		public Task<bool> Actualizar(Categoria modelo)
+		public async Task<bool> Actualizar(Categoria modelo)
 		{
-			throw new NotImplementedException();
-		}
+            using (var con = new SqlConnection(_StrSqlServer))
+            {
+                using (var cmd = new SqlCommand("sp_ActualizarCategoria", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCategoria", modelo.Id);
+                    cmd.Parameters.AddWithValue("@Nombre", modelo.Nombre);
+                    cmd.Parameters.AddWithValue("@Descripcion", modelo.Descripcion);
+                    await con.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+
+                    return true;
+                }
+            }
+        }
 
 		/*Busca una categoria por un id*/
 		public async Task<Categoria> BuscarPorId(int id)
@@ -60,10 +73,29 @@ namespace Tienda_ApiRest.Servicios
 		}
 
 		/*Metodo encargado de listar las Categorias que tenemos en la base de datos*/
-		public Task<bool> Insertar(Categoria modelo)
+		public async Task<bool> Insertar(Categoria modelo)
 		{
-			throw new NotImplementedException();
-		}
+            try
+            {
+                using (var con = new SqlConnection(_StrSqlServer))
+                {
+                    using (var cmd = new SqlCommand("sp_AggCategoria", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Nombre", modelo.Nombre);
+                        cmd.Parameters.AddWithValue("@Descripcion", modelo.Descripcion);
+                        await con.OpenAsync();
+                        await cmd.ExecuteNonQueryAsync();
+
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 		public async Task<List<Categoria>?> Listar()
 		{
